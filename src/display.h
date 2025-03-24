@@ -1,6 +1,7 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
+#include <stdbool.h>
 /*
 	Collection of constants and functions related to the screen and drawing functionalities.
 
@@ -33,5 +34,6 @@
 
 extern const unsigned char fonts[80];
 
+bool is_valid_pixel(unsigned short pixel);
 
 #endif

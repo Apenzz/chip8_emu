@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 #include "display.h"
 
 
@@ -20,3 +22,10 @@ const unsigned char fonts[80] = {
 	0xf0, 0x80, 0xf0, 0x80, 0x80,	// F
 };
 
+bool is_valid_pixel(unsigned short pixel) {
+	// pixel 0xXXYY	
+	unsigned char x_pos = (0xff00 & pixel) >> 8;
+	unsigned char y_pos = 0x00ff & pixel;
+	bool is_valid;
+	return is_valid = ((x_pos < DISPLAY_WIDTH) && (y_pos < DISPLAY_HEIGHT)) ? true : false;
+}

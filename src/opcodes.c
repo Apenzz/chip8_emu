@@ -1,5 +1,8 @@
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
+
+#include "display.h"
 #include "chip8.h"
 #include "opcodes.h"
 
@@ -194,18 +197,31 @@ void rnd(void)
 // drw - Dxyn
 void drw(void)
 {
-	unsigned char n = 0x000f & opcode; // get number of bytes of sprite (0<n<16)
-				
+	unsigned char x = chip8.V[(0x0f00 & opcode) >> 8]; // pixel x position
+	unsigned char y = chip8.V[(0x00f0 & opcode) >> 4]; // pixel y position 
+	unsigned char height = 0x000f & opcode; // get number of bytes of sprite (0<n<16)
+	unsigned char pixel;
+	// check that (Vx, Vy) are valid coordinates
+	// TODO	
+	chip8.V[0xf] = 0; // reset collision flag
+
+	// loops through rows of the sprite
+	for (int row=0; row<height; row++) {
+		pixel = chip8.memory[chip8.I + row];
+		// loops through columns of the sprite 
+		for (int col=0; col<8; col++) {
+			// if this pixel is set
+			if ((pixel & (0x80 >> col)) != 0) {
+				// pixel will be erased so set VF to 1
+				unsigned int pixel_pos = (x + col) + ((y + row) * DISPLAY_WIDTH);
+				if (chip8.gpx[pixel_pos] == 1) {
+					chip8.V[0xf] = 1;
+				}
+				chip8.gpx[pixel_pos] ^= 1; // XOR the pixel
+			}
+		}
+	}
 }
-
-
-
-
-
-
-
-
-
 
 
 
