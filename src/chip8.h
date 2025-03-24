@@ -8,7 +8,6 @@
 #define STACK_SIZE 16
 #define KEY_NUM 16
 
-
 typedef struct 
 {
 	unsigned char memory[MEMORY_SIZE];

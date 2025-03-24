@@ -6,6 +6,7 @@
 #include <SDL3/SDL.h>
 
 #include "chip8.h"
+#include "display.h"
 
 int main(void) {
 	srand(time(NULL)); // random seed
@@ -17,8 +18,8 @@ int main(void) {
 
 	window = SDL_CreateWindow(
 		"Chip-8 Emulator",
-		640,
-		480,
+		DISPLAY_WIDTH,
+		DISPLAY_HEIGHT,
 		SDL_WINDOW_OPENGL
 	);
 
@@ -28,7 +29,7 @@ int main(void) {
 		return 1;
 	}
 	
-	SDL_Delay(10000);
+	SDL_Delay(2000);
 
 	SDL_DestroyWindow(window);
 

@@ -24,8 +24,8 @@
 
 /* constants definitions */
 
-#define DISPLAY_SIZE 64*32
-#define DISPLAY_WITDH 64
+#define DISPLAY_SIZE (64*32)
+#define DISPLAY_WIDTH 64
 #define DISPLAY_HEIGHT 32
 
 
