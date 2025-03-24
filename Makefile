@@ -1,5 +1,6 @@
 CC := clang 
-CFLAGS := -Wall -Wextra -g -O2
+CFLAGS := -Wall -Wextra -g -O2 $(shell pkg-config --cflags sdl3)
+LDFLAGS := $(shell pkg-config --libs sdl3)
 SRC_DIR := ./src
 BUILD_DIR := ./build
 TARGET_EX := chip8_emu
@@ -11,7 +12,7 @@ OBJS := $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 
 # final build
 $(BUILD_DIR)/$(TARGET_EX): $(OBJS)
-	$(CC) $(OBJS) -o $@ $(LDFLAGS)
+	$(CC) $(OBJS) $(LDFLAGS) -o $@ 
 
 # build object files from C sources
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c

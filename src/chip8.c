@@ -21,11 +21,7 @@ void initialize(void)
 	memset(chip8.key, 0, KEY_NUM); // reset keyboard
 
     // load fontset into interpreter address space (from 0x00 to 0x50)
-	if (!memory || !fonts) {
-		printf("Failed to load fonts.\nExit status 1.");
-		return 1;
-	}
-	memcpy(memory, fonts, 0x50);	
+	memcpy(chip8.memory, fonts, 0x50);	
 
     // load the program into memory (todo)
 }
