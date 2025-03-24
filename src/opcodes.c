@@ -213,7 +213,7 @@ void drw(void)
 			// if this pixel is set
 			if ((pixel & (0x80 >> col)) != 0) {
 				// pixel will be erased so set VF to 1
-				unsigned int pixel_pos = (x + col) + ((y + row) * DISPLAY_WIDTH);
+				unsigned int pixel_pos = ((x + col) % DISPLAY_WIDTH) + (((y + row) % DISPLAY_HEIGHT) * DISPLAY_WIDTH);
 				if (chip8.gpx[pixel_pos] == 1) {
 					chip8.V[0xf] = 1;
 				}
