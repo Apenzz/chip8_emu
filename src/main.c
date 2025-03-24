@@ -13,6 +13,7 @@ int main(void) {
 	initialize();	
 
 	SDL_Window *window;
+	bool done = false;
 
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -29,7 +30,16 @@ int main(void) {
 		return 1;
 	}
 	
-	SDL_Delay(2000);
+	while (!done) {
+		SDL_Event event;
+
+		while (SDL_PollEvent(&event)) {
+			if (event.type == SDL_EVENT_QUIT) {
+				done = true;
+			}
+		}
+		// do game logic, present a frame, etc.
+	}
 
 	SDL_DestroyWindow(window);
 
