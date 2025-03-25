@@ -26,7 +26,7 @@ extern Chip8 chip8;
 
 extern unsigned short opcode;
 
-void initialize(void);
+void chip8_initialize(void);
 
 void emulate_cycle(void);
 

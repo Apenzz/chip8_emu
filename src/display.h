@@ -29,11 +29,12 @@
 #define DISPLAY_WIDTH 64
 #define DISPLAY_HEIGHT 32
 
-
 /* Font sprits for hexadecimal digits 0 through F */
-
 extern const unsigned char fonts[80];
 
-bool is_valid_pixel(unsigned short pixel);
+/* Initialize SDL graphics library */
+bool graphics_initialize(void);
 
+/* Cleanup and quit SDL library */
+void graphics_quit(void);
 #endif

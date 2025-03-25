@@ -9,25 +9,15 @@
 #include "display.h"
 
 int main(void) {
+	int exit_code = 0;
+
 	srand(time(NULL)); // random seed
-	initialize();	
-
-	SDL_Window *window;
-	bool done = false;
-
-	SDL_Init(SDL_INIT_VIDEO);
-
-	window = SDL_CreateWindow(
-		"Chip-8 Emulator",
-		DISPLAY_WIDTH,
-		DISPLAY_HEIGHT,
-		SDL_WINDOW_OPENGL
-	);
-
-	// check if window was successfully craeted
-	if (window == NULL) {
-		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Could not create window: %s\n", SDL_GetError());
-		return 1;
+	chip8_initialize();	
+	if (!graphics_initialize()) {
+		SDL_Log("Unable to load SDL\n");
+		exit_code = 1;
+	} else {
+		// load media	
 	}
 	
 	while (!done) {
@@ -42,7 +32,9 @@ int main(void) {
 	}
 
 	SDL_DestroyWindow(window);
+	
+	// quit SDL
+	graphics_quit();
 
-	SDL_Quit();
 	return 0;
 }

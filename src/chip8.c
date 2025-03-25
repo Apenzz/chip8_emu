@@ -7,7 +7,7 @@
 unsigned short opcode = 0; // initialize opcode as global variable set to 0
 Chip8 chip8; 
 
-void initialize(void)
+void chip8_initialize(void)
 {
 	chip8.pc = 0x200; // initialize program counter
 	chip8.sp = 0; // initialize stack pointer
