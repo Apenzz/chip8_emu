@@ -182,7 +182,7 @@ void drw(void);
 /*
  	SKP Vx
 	Skip next instruction if key with the value of Vx is pressed.
-	Checks the keyboard and if the key correspoinding with the of Vx is currently in the down position increase the pc by 2.
+	Checks the keyboard and if the key correspoinding with the value of Vx is currently in the down position increase the pc by 2.
 	hexcode: Ex9E
 */
 void skp(void);
@@ -200,7 +200,7 @@ void sknp(void);
 	set Vx = delay timer value.
 	hexcode: Fx07
 */
-void LDT(void);
+void ltd(void);
 
 /*
  	LD Vx, K

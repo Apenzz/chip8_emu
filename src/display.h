@@ -25,9 +25,9 @@
 
 /* constants definitions */
 
-#define DISPLAY_SIZE (64*32)
 #define DISPLAY_WIDTH 64
 #define DISPLAY_HEIGHT 32
+#define DISPLAY_SIZE DISPLAY_WIDTH * DISPLAY_HEIGHT 
 
 /* Font sprits for hexadecimal digits 0 through F */
 extern const unsigned char fonts[80];
