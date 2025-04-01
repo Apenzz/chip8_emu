@@ -1,7 +1,6 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
-#include <stdbool.h>
 /*
 	Collection of constants and functions related to the screen and drawing functionalities.
 
@@ -35,6 +34,10 @@ extern const unsigned char fonts[80];
 /* Initialize SDL graphics library */
 bool graphics_initialize(void);
 
+/* draw logic */
+bool draw_frame(void);
+
 /* Cleanup and quit SDL library */
 void graphics_quit(void);
+
 #endif

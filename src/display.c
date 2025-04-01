@@ -80,7 +80,7 @@ bool graphics_initialize(void)
 }
 
 /* main function for updating screen */
-bool draw_frame()
+bool draw_frame(void)
 {
 	bool success = true;
 	// create a texture from surface for exploiting hardware accelaration
