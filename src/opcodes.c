@@ -292,7 +292,7 @@ void addi(void)
 void ldf(void)
 {
 	unsigned char x = (0x0f00 & opcode) >> 8;
-	chip8.I = chip8.memory + 5 * chip8.V[x];
+	chip8.I = 5 * chip8.V[x];
 }
 
 // ldb - Fx33
@@ -311,12 +311,12 @@ void ldb(void)
 void strs(void)
 {
 	unsigned char x = (0x0f00 & opcode) >> 8;
-	memcpy(&chip8.memory[I], chip8.V, x+1);
+	memcpy(&chip8.memory[chip8.I], chip8.V, x+1);
 }
 
 // ldrs - Fx65
 void ldrs(void)
 {
 	unsigned char x = (0x0f00 & opcode) >> 8;
-	memcpy(chip8.V, &chip8.memory[I], x + 1);
+	memcpy(chip8.V, &chip8.memory[chip8.I], x + 1);
 }
