@@ -193,7 +193,7 @@ void skp(void);
 	Checks the keyboard and if the key corresponding with the value of Vx is currently in the up position increase the pc by 2.
 	hexcode: ExA1
 */
-void sknp(void);
+void skpn(void);
 
 /*
  	LD Vx, DT

@@ -21,12 +21,14 @@
 	The data should be stored in the memory space 0x000 to 0x1ff.
 */
 
+#include <stdbool.h>
 
 /* constants definitions */
 
 #define DISPLAY_WIDTH 64
 #define DISPLAY_HEIGHT 32
 #define DISPLAY_SIZE DISPLAY_WIDTH * DISPLAY_HEIGHT 
+#define SCALE 10
 
 /* Font sprits for hexadecimal digits 0 through F */
 extern const unsigned char fonts[80];

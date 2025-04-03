@@ -1,58 +1,59 @@
 #include <SDL3/SDL.h>
 #include <stdio.h>
 
-#define WIDTH 256 
-#define HEIGHT 256 
+#include "chip8.h"
+#include "display.h"
 
-static uint32_t gpx[WIDTH * HEIGHT];
-
-// NEEDS UPDATING
 static void generate_checkboard_pattern(void)
 {
-	for (int y=0; y<HEIGHT; y++) {
-		for (int x=0; x<WIDTH; x++) {
+	for (int y=0; y<DISPLAY_HEIGHT; y++) {
+		for (int x=0; x<DISPLAY_WIDTH; x++) {
 			if ((x+y) % 2 == 0) {
-				gpx[y * WIDTH + x] = 0x000000ff; 
+				chip8.gpx[y * DISPLAY_WIDTH + x] = 0x00; // solid black
 			} else {
-				gpx[y * WIDTH + x] = 0xffffffff;
+				chip8.gpx[y * DISPLAY_WIDTH + x] = 0xff; // solid white
 			}
 		}
 	}
 }
 
 // fill gpx with fixed RGBA color
-static void generate_solid_pattern(uint32_t color)
+static void generate_solid_pattern(uint8_t color)
 {
-	for (int y=0; y<HEIGHT; y++) {
-		for (int x=0; x<WIDTH; x++) {
-			gpx[y * WIDTH + x] = color;
+	for (int y=0; y<DISPLAY_HEIGHT; y++) {
+		for (int x=0; x<DISPLAY_WIDTH; x++) {
+			chip8.gpx[y * DISPLAY_WIDTH + x] = color;
 		}
 	}
 }
 
 static void clean_array(void)
 {
-	for (int i=0; i<(WIDTH*HEIGHT); i++) {
-		gpx[i] = 0;
+	for (int i=0; i<(DISPLAY_WIDTH*DISPLAY_HEIGHT); i++) {
+		chip8.gpx[i] = 0;
 	}
 }
 
 int test_gpx(void)
 {
 	SDL_Init(SDL_INIT_VIDEO);
-	SDL_Window *window = SDL_CreateWindow("Monochrome render", WIDTH, HEIGHT, 0);
+	SDL_Window *window = SDL_CreateWindow("Monochrome render", DISPLAY_WIDTH, DISPLAY_HEIGHT, 0);
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, NULL);
-	SDL_Texture *texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_BGRA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
+	SDL_Texture *texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_BGRA8888, SDL_TEXTUREACCESS_STREAMING, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 	
-	uint32_t color_red = 0x0000ffff; // solid red
-	uint32_t color_green = 0x00ff00ff; // solid green
-	uint32_t color_blue = 0xff0000ff; // solid blue 
+	uint8_t black = 0x00;
+	uint8_t white = 0xff;
 	clean_array();
 	generate_checkboard_pattern();
-	// generate_solid_pattern(color_green);
+	// generate_solid_pattern(white);
+	
+	// convert monochrome pixels to RGB representation	
+	uint32_t pixels[DISPLAY_WIDTH * DISPLAY_HEIGHT];
+	
+	
 
 	// update the texture
-	SDL_UpdateTexture(texture, NULL, gpx, WIDTH * sizeof(uint32_t));
+	SDL_UpdateTexture(texture, NULL, chip8.gpx, DISPLAY_WIDTH * sizeof(uint32_t));
 
 	int running = 1;
 	SDL_Event e;

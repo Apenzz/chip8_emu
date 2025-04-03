@@ -40,8 +40,9 @@ const unsigned char fonts[80] = {
 
 static void render_texture(SDL_Texture *texture)
 {
+	SDL_Rect dest_rect = {0, 0, DISPLAY_WIDTH * SCALE, DISPLAY_HEIGHT * SCALE};
 	SDL_RenderClear(renderer); // clear the screen with the default color
-	SDL_RenderTexture(renderer, texture, NULL, NULL); // render the full texture to the full screen
+	SDL_RenderTexture(renderer, texture, NULL, &dest_rect); // render the full texture to the full screen
 	SDL_RenderPresent(renderer); // show the rendered image on the screen
 }
 
@@ -54,7 +55,7 @@ bool graphics_initialize(void)
 		SDL_Log("Could not initialize SDL library! Error: %s\n", SDL_GetError());
 	success = false;
 	} else {
-		if (!(window = SDL_CreateWindow("Chip-8 Emulator", DISPLAY_WIDTH, DISPLAY_HEIGHT, 0))) {
+		if (!(window = SDL_CreateWindow("Chip-8 Emulator", DISPLAY_WIDTH * SCALE, DISPLAY_HEIGHT * SCALE, 0))) {
 			SDL_Log("Window could not be created! Error: %s\n", SDL_GetError());
 			success = false;
 		} else {

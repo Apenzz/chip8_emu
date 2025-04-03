@@ -13,6 +13,8 @@
 int main(void) {
 
 	srand(time(NULL)); // random seed
-	test_gpx();
+	// test_gpx();
+	run_emulator();
+
 	return 0;
 }
