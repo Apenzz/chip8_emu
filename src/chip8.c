@@ -60,6 +60,7 @@ static void chip8_initialize(void)
 	memset(chip8.stack, 0, STACK_SIZE); // reset stack
 	memset(chip8.gpx, 0, DISPLAY_SIZE); // reset pixels
 	memset(chip8.key, 0, KEY_NUM); // reset keyboard
+	chip8.flags = 0; // set all flags to 0
 
     // load fontset into interpreter address space (from 0x00 to 0x50)
 	memcpy(chip8.memory, fonts, 0x50);	
@@ -87,19 +88,29 @@ void run_emulator(void)
 				running = false;
 			}
 		}	
-	}
-
-	// get current time
-	uint64_t current_time = SDL_GetTicks();
-	// execute one cpu cycle every 200 ms
-	if (current_time - last_cycle_time >= CPU_CLOCK_SPEED) {
-		emulate_cycle(); // fetch & execute opcode		
-		last_cycle_time = current_time;
-	}	
-	// update delay and sound timers every 16.7 ms
-	if (current_time - last_timer_time >= TIMER_CLOCK_SPEED) {
-		chip8.delay_timer = (chip8.delay_timer <= 0) ? 0 : chip8.delay_timer--;
-		chip8.sound_timer = (chip8.sound_timer <= 0) ? 0 : chip8.sound_timer--;
+		// get current time
+		uint64_t current_time = SDL_GetTicks();
+		// execute one cpu cycle every 200 ms
+		if (current_time - last_cycle_time >= CPU_CLOCK_SPEED) {
+			emulate_cycle(); // fetch & execute opcode		
+			last_cycle_time = current_time;
+			unsigned char draw_flag = chip8.flags & 0x80;
+			// draw frame only when draw_flag is set
+			if (draw_flag) {
+				draw_frame();
+				chip8.flags &= 0x7f; // reset draw_flag
+			}
+		}	
+		// update delay and sound timers every 16.7 ms
+		if (current_time - last_timer_time >= TIMER_CLOCK_SPEED) {
+			if (chip8.delay_timer > 0) {
+				--chip8.delay_timer;
+			}
+			if (chip8.sound_timer > 0) {
+				-- chip8.sound_timer;
+			}
+			last_timer_time = current_time;
+		}
 	}
 }
 

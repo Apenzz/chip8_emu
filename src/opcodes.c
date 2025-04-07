@@ -221,6 +221,7 @@ void drw(void)
 			}
 		}
 	}
+	chip8.flags |= 0x80;
 }
 
 // skp - Ex9E

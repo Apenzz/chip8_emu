@@ -20,6 +20,7 @@ typedef struct
 	unsigned short I; // Special puropse 16-bit register used to store memory addresses, so only the lowest (rightmost) 12 bits are usually used.
 	unsigned char delay_timer;
 	unsigned char sound_timer;
+	unsigned char flags;	// reserved flags (drw, etc)
 } Chip8;
 
 extern Chip8 chip8;

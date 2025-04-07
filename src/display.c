@@ -40,7 +40,7 @@ const unsigned char fonts[80] = {
 
 static void render_texture(SDL_Texture *texture)
 {
-	SDL_Rect dest_rect = {0, 0, DISPLAY_WIDTH * SCALE, DISPLAY_HEIGHT * SCALE};
+	const SDL_FRect dest_rect = {0, 0, DISPLAY_WIDTH * SCALE, DISPLAY_HEIGHT * SCALE};
 	SDL_RenderClear(renderer); // clear the screen with the default color
 	SDL_RenderTexture(renderer, texture, NULL, &dest_rect); // render the full texture to the full screen
 	SDL_RenderPresent(renderer); // show the rendered image on the screen
